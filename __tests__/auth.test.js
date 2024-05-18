@@ -1,4 +1,4 @@
-test.todo('User can succesfully register')
+test('User can succesfully register')
 test.todo('User can succesfully login')
 test.todo('User gets 403 on invalid credentials')
 test.todo('User gets 401 on expired access token')
