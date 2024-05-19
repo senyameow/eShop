@@ -1,4 +1,5 @@
+import { Product } from "../Product/Product"
 
-export type Cart = {
+export class Cart {
     products: Product[]
 }
