@@ -8,9 +8,9 @@ export class User {
         public readonly firstname: string,
         public readonly phone: Phone,
         public readonly username: UserName,
-        public readonly age: number,
         public readonly role: USER_ROLE,
         public readonly email: Email,
+        public readonly age?: number,
     ) { }
 
     // это доменная функция, нормально ее оставить здесь

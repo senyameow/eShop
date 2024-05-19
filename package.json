@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon index.js"
+    "dev": "nodemon",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,10 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "inversify": "^6.0.2",
+    "inversify-express-utils": "^6.4.6",
     "pg": "^8.11.5",
+    "reflect-metadata": "^0.2.2",
     "sequelize": "^6.37.3"
   }
 }

@@ -4,6 +4,12 @@
         "module": "commonjs",
         "moduleResolution": "node",
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "emitDecoratorMetadata": true,
+        "types": [
+            "reflect-metadata"
+        ],
+        "lib": [
+            "ES6"
+        ]
     }
 }
