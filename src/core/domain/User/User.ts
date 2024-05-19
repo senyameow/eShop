@@ -2,17 +2,19 @@ import { USER_ROLE } from "./UserRole";
 
 export type UserName = string
 // доменная модель пользователя приложения
-export type User = {
-    id: UniqueId;
-    firstname: string;
-    lastName?: string;
-    username: UserName;
-    email: Email;
-    age: number;
-    role: USER_ROLE
-}
+export class User {
+    constructor(
+        public readonly id: UniqueId,
+        public readonly firstname: string,
+        public readonly phone: Phone,
+        public readonly username: UserName,
+        public readonly age: number,
+        public readonly role: USER_ROLE,
+        public readonly email: Email,
+    ) { }
 
-// это доменная функция, нормально ее оставить здесь
-export function isChild(user: User): boolean {
-    return user.age < 18
+    // это доменная функция, нормально ее оставить здесь
+    public get isChild(): boolean {
+        return this.age < 18;
+    }
 }
