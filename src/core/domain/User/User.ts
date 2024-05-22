@@ -1,12 +1,13 @@
 import { ContactUserInfo } from "./UserInfo/Contact/ContactUserInfo";
 import { ProfileUserInfo } from "./UserInfo/Profile/ProfileUserInfo";
+import { USER_ROLE } from "./UserRole";
 
 export class User {
     constructor(
         // т.к. сущность, то нужен айдишник
         public readonly id: number,
         // admin or user
-        public readonly role: string,
+        public readonly role: USER_ROLE,
         // для профиля (для покупок не требуется)
         // public readonly age: number,
         // public readonly firstName: string,
