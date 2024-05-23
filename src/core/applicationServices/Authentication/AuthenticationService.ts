@@ -8,8 +8,11 @@ import { AddUserRequest } from "../../domainServices/User/requests/AddUserReques
 import { IAuthenticationService } from "./IAuthenticationService";
 import { SignUpRequest } from "./requests/SignUpRequest";
 import { DOMAIN_REPOSITORIES_SYMBOLS } from "../../SYMBOLS";
-import { AuthRequest } from "./requests/AuthRequest";
+import { LoginRequest } from "./requests/LoginRequest";
 import { GetUserByEmailRequest } from "../../domainServices/User/requests/GetUserByEmailRequest";
+import { compare } from 'bcrypt'
+import { BaseError } from "../../common/errors/BaseError";
+import { CoreErrors } from "../../common/errors/CoreErrors";
 
 
 @injectable()
@@ -23,6 +26,11 @@ export class AuthenticationService implements IAuthenticationService {
 
     async signUp({ email, password }: SignUpRequest): Promise<User> {
         const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
+        if (user) {
+            throw new BaseError(
+                CoreErrors[CoreErrors.USER_ALREADY_EXISTS]
+            )
+        }
         // наш кор не знает про то, какие в БД могут быть роли
         // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
@@ -35,8 +43,11 @@ export class AuthenticationService implements IAuthenticationService {
         ))
     }
 
-    async login({ email, password }: AuthRequest): Promise<User> {
+    async login({ email, password }: LoginRequest): Promise<User> {
         const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
 
+        if (!user || !(await compare(password, user?.Contact?.password || ''))) return null
+
+        return user
     }
 }

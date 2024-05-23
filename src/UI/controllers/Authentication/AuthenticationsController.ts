@@ -7,6 +7,8 @@ import { UI_UserDto } from "../../dto/UI_UserDto";
 import StatusCodes from 'http-status-codes'
 import { LoginRequestBody } from "./requests/LoginRequestBody";
 import { DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";
+import { LoginRequest } from "../../../core/applicationServices/Authentication/requests/LoginRequest";
+import { UIError } from "../../common/config/errors/UIError";
 
 @controller('/api/auth')
 export class AuthenticationController extends BaseHttpController {
@@ -38,7 +40,11 @@ export class AuthenticationController extends BaseHttpController {
         { email, password }: LoginRequestBody
     ): Promise<results.JsonResult> {
         // TODO
-        const user = await this.authenticationService.login()
+        const user = await this.authenticationService.login(new LoginRequest(email, password))
+
+        // if (!user) {
+        //     throw new UIError()
+        // }
     }
 
 }

@@ -1,9 +1,9 @@
 import { User } from "../../domain/User/User";
-import { AuthRequest } from "./requests/AuthRequest";
+import { LoginRequest } from "./requests/LoginRequest";
 import { SignUpRequest } from "./requests/SignUpRequest";
 
 
 export interface IAuthenticationService {
     signUp(request: SignUpRequest): Promise<User>;
-    login(request: AuthRequest): Promise<User>
+    login(request: LoginRequest): Promise<User>
 }

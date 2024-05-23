@@ -1,10 +1,9 @@
 // наше приложение хочет аутентифицировать людей через данный интерфейс
 // внешний мир должен предоставить метод(ы)
 
-import { AuthRequest } from "../../../core/applicationServices/Authentication/requests/AuthRequest";
-import { SignUpRequest } from "../../../core/applicationServices/Authentication/requests/SignUpRequest";
+import { LoginRequest } from "../../../core/applicationServices/Authentication/requests/LoginRequest";
+import { AuthResponse } from "./models/AuthResponse";
 
 export interface IAuthentication {
-    authenticate(request: AuthRequest): Promise<string> // возвращает jwt access токен
-    register(request: SignUpRequest): Promise<string> // jwt access токен
+    authenticate(request: LoginRequest): Promise<AuthResponse> // возвращает jwt access токен
 }
