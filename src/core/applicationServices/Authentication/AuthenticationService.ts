@@ -8,6 +8,8 @@ import { AddUserRequest } from "../../domainServices/User/requests/AddUserReques
 import { IAuthenticationService } from "./IAuthenticationService";
 import { SignUpRequest } from "./requests/SignUpRequest";
 import { DOMAIN_REPOSITORIES_SYMBOLS } from "../../SYMBOLS";
+import { AuthRequest } from "./requests/AuthRequest";
+import { GetUserByEmailRequest } from "../../domainServices/User/requests/GetUserByEmailRequest";
 
 
 @injectable()
@@ -20,6 +22,7 @@ export class AuthenticationService implements IAuthenticationService {
     ) { }
 
     async signUp({ email, password }: SignUpRequest): Promise<User> {
+        const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
         // наш кор не знает про то, какие в БД могут быть роли
         // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
@@ -30,5 +33,10 @@ export class AuthenticationService implements IAuthenticationService {
             email,
             password
         ))
+    }
+
+    async login({ email, password }: AuthRequest): Promise<User> {
+        const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
+
     }
 }

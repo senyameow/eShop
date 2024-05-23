@@ -6,5 +6,5 @@ import { SignUpRequest } from "../../../core/applicationServices/Authentication/
 
 export interface IAuthentication {
     authenticate(request: AuthRequest): Promise<string> // возвращает jwt access токен
-    register(request: SignUpRequest): Promise<string>
+    register(request: SignUpRequest): Promise<string> // jwt access токен
 }

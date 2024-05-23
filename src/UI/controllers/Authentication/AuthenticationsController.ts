@@ -6,11 +6,12 @@ import { SignUpRequestBody } from "./requests/SignUpRequestBody";
 import { UI_UserDto } from "../../dto/UI_UserDto";
 import StatusCodes from 'http-status-codes'
 import { LoginRequestBody } from "./requests/LoginRequestBody";
+import { DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";
 
 @controller('/api/auth')
 export class AuthenticationController extends BaseHttpController {
     constructor(
-        @inject() private readonly authenticationService: IAuthenticationService,
+        @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authenticationService: IAuthenticationService,
 
     ) {
         super()
