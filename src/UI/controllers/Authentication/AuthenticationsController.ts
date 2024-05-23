@@ -1,5 +1,5 @@
 import { inject } from "inversify";
-import { BaseHttpController, controller, httpGet, httpPost, interfaces, requestBody, results } from "inversify-express-utils";
+import { BaseHttpController, controller, cookies, httpGet, httpPost, interfaces, requestBody, results } from "inversify-express-utils";
 import { IAuthenticationService } from "../../../core/applicationServices/Authentication/IAuthenticationService";
 import { SignUpRequest } from "../../../core/applicationServices/Authentication/requests/SignUpRequest";
 import { SignUpRequestBody } from "./requests/SignUpRequestBody";
@@ -8,13 +8,14 @@ import StatusCodes from 'http-status-codes'
 import { LoginRequestBody } from "./requests/LoginRequestBody";
 import { DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";
 import { LoginRequest } from "../../../core/applicationServices/Authentication/requests/LoginRequest";
-import { UIError } from "../../common/config/errors/UIError";
+import { IAuthentication } from "../../common/auth/public/IAuthentication";
+import { UI_APP_SYMBOLS } from "../../SYMBOLS";
 
 @controller('/api/auth')
 export class AuthenticationController extends BaseHttpController {
     constructor(
         @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authenticationService: IAuthenticationService,
-
+        @inject(UI_APP_SYMBOLS.JWTUtil) private readonly jwt: IAuthentication
     ) {
         super()
     }
@@ -39,12 +40,9 @@ export class AuthenticationController extends BaseHttpController {
         @requestBody()
         { email, password }: LoginRequestBody
     ): Promise<results.JsonResult> {
-        // TODO
-        const user = await this.authenticationService.login(new LoginRequest(email, password))
+        const tokens = await this.jwt.authenticate(new LoginRequest(email, password))
 
-        // if (!user) {
-        //     throw new UIError()
-        // }
+        return this.json(tokens, StatusCodes.OK)
     }
 
 }

@@ -3,7 +3,7 @@ import { RefreshToken } from "./RefreshToken";
 
 export class AuthResponse {
     constructor(
-        public readonly accessToken: AccessToken,
-        public readonly refreshToken: RefreshToken
+        public readonly accessToken: string,
+        public readonly refreshToken: string
     ) { }
 }

@@ -7,12 +7,17 @@ import { StatusCodes, getReasonPhrase } from "http-status-codes";
 import { UIError } from "../../../../common/config/errors/UIError";
 import { UI_UserDto } from "../../../../dto/UI_UserDto";
 import { AuthResponse } from "../../../../common/auth/models/AuthResponse";
+import { IJWT } from "../../../../common/auth/utils/jwt/IJWT";
+import { CreateTokenRequest } from "../../../../common/auth/utils/jwt/requests/createTokenRequest";
+import { ACCESS_TOKEN_LIFETIME, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME } from "../../../../common/config/errors/constants/const";
+import { UI_APP_SYMBOLS } from "../../../../SYMBOLS";
 
 @injectable()
 export class JWTAuth implements IAuthentication {
 
     constructor(
-        @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authService: IAuthenticationService
+        @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authService: IAuthenticationService,
+        @inject(UI_APP_SYMBOLS.JWTUtil) private readonly jwtService: IJWT
     ) { }
 
     async authenticate(request: LoginRequest): Promise<AuthResponse> {
@@ -27,6 +32,9 @@ export class JWTAuth implements IAuthentication {
 
         const UserDto = new UI_UserDto(user.Contact.email, user.role, user.id)
 
-        return
+        const accessToken = this.jwtService.createToken(new CreateTokenRequest(UserDto, JWT_SECRET_KEY, ACCESS_TOKEN_LIFETIME))
+        const refreshToken = this.jwtService.createToken(new CreateTokenRequest(UserDto, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME))
+
+        return new AuthResponse(accessToken, refreshToken)
     }
 }
