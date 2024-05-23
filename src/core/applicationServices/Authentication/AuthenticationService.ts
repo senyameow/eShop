@@ -1,3 +1,4 @@
+import { inject, injectable } from "inversify";
 import { User } from "../../domain/User/User";
 import { USER_ROLE } from "../../domain/User/UserRole";
 import { IRoleRepository } from "../../domainServices/Role/IRoleRepository";
@@ -6,12 +7,15 @@ import { IUserRepository } from "../../domainServices/User/IUserRepository";
 import { AddUserRequest } from "../../domainServices/User/requests/AddUserRequest";
 import { IAuthenticationService } from "./IAuthenticationService";
 import { SignUpRequest } from "./requests/SignUpRequest";
+import { DOMAIN_REPOSITORIES_SYMBOLS } from "../../SYMBOLS";
 
 
-
+@injectable()
 export class AuthenticationService implements IAuthenticationService {
     constructor(
+        @inject(DOMAIN_REPOSITORIES_SYMBOLS.USER_REPOSITORY)
         private readonly userRepository: IUserRepository,
+        @inject(DOMAIN_REPOSITORIES_SYMBOLS.ROLE_REPOSITORY)
         private readonly roleRepository: IRoleRepository,
     ) { }
 

@@ -5,6 +5,7 @@ import { SignUpRequest } from "../../../core/applicationServices/Authentication/
 import { SignUpRequestBody } from "./requests/SignUpRequestBody";
 import { UI_UserDto } from "../../dto/UI_UserDto";
 import StatusCodes from 'http-status-codes'
+import { LoginRequestBody } from "./requests/LoginRequestBody";
 
 @controller('/api/auth')
 export class AuthenticationController extends BaseHttpController {
@@ -15,7 +16,7 @@ export class AuthenticationController extends BaseHttpController {
         super()
     }
 
-    @httpPost('/register')
+    @httpPost('/signup')
     // контроллер получает действие на регистрацию пользователя в системе и дергает нужные сервисы
     // контроллер должен быть МАКСИМАЛЬНО тонким
     public async register(
@@ -30,6 +31,13 @@ export class AuthenticationController extends BaseHttpController {
         return this.json(userDto, StatusCodes.OK)
     }
 
-
+    @httpGet('/login')
+    public async login(
+        @requestBody()
+        { email, password }: LoginRequestBody
+    ): Promise<results.JsonResult> {
+        // TODO
+        const user = await this.authenticationService.login()
+    }
 
 }
