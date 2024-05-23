@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { LoginRequest } from "../../../../../core/applicationServices/Authentication/requests/LoginRequest";
-import { IAuthentication } from "../../../../common/auth/IAuthentication";
+import { IAuthentication } from "../../../../common/auth/public/IAuthentication";
 import { IAuthenticationService } from "../../../../../core/applicationServices/Authentication/IAuthenticationService";
 import { DOMAIN_SERVICES_SYMBOLS } from "../../../../../core/SYMBOLS";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
