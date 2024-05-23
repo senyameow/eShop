@@ -8,7 +8,7 @@ import { IncomingHttpHeaders } from 'http';
 @injectable()
 export class JWT implements IJWT {
     // from https://stackoverflow.com/questions/61802832/regex-to-match-jwt
-    private readonly matcher = /^[\w-]+\.[\w-]+\.[\w-]+$/;
+    private readonly matcher = /([\w-]+)\.[\w-]+\.([\w-]+)+$/;
 
 
     createToken({ payload, secret, expiresIn }: CreateTokenRequest): string {
@@ -30,6 +30,6 @@ export class JWT implements IJWT {
         }
         const matches = authHeader.match(this.matcher);
 
-        return matches && matches[2]
+        return matches && matches[0]
     }
 }
