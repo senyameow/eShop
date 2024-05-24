@@ -8,7 +8,7 @@ import { UIError } from "../../../../common/config/errors/UIError";
 import { UI_UserDto } from "../../../../dto/UI_UserDto";
 import { AuthResponse } from "../../../../common/auth/models/AuthResponse";
 import { IJWT } from "../../../../common/auth/utils/jwt/IJWT";
-import { CreateTokenRequest } from "../../../../common/auth/utils/jwt/requests/createTokenRequest";
+import { CreateTokenRequest } from "../../../../common/auth/utils/jwt/requests/CreateRequest";
 import { ACCESS_TOKEN_LIFETIME, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME } from "../../../../common/config/errors/constants/const";
 import { UI_APP_SYMBOLS } from "../../../../SYMBOLS";
 

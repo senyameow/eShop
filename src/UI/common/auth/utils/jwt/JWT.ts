@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import * as jwt from 'jsonwebtoken'
 import { IJWT } from './IJWT';
-import { CreateTokenRequest } from './requests/createTokenRequest';
+import { CreateTokenRequest } from './requests/CreateRequest';
 import { JWT_SECRET_KEY } from '../../../config/errors/constants/const';
 import { IncomingHttpHeaders } from 'http';
 
@@ -15,7 +15,7 @@ export class JWT implements IJWT {
         return jwt.sign(payload, secret, { expiresIn })
     }
 
-    decodeToken(token: string): jwt.JwtPayload | null {
+    decodeToken<Result extends Object | string | null>(token: string): Result {
         try {
             jwt.verify(token, JWT_SECRET_KEY)
         } catch (error) {

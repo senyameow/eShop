@@ -1,9 +1,8 @@
 import { IncomingHttpHeaders } from "http";
-import * as jwt from 'jsonwebtoken';
-import { CreateTokenRequest } from "./requests/createTokenRequest";
+import { CreateTokenRequest } from "./requests/CreateRequest";
 
 export interface IJWT {
     createToken(request: CreateTokenRequest): string;
-    decodeToken(token: string): jwt.JwtPayload | null;
-    getTokenFromHeaders(headers: IncomingHttpHeaders): string | null
+    decodeToken<Result extends Object | string | null>(token: string): Result;
+    getTokenFromHeaders(headers: IncomingHttpHeaders): string | null;
 } 
