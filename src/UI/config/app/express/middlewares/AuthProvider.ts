@@ -5,7 +5,7 @@ import { IUserRepository } from "../../../../../core/domainServices/User/IUserRe
 import { IJWT } from "../../../../common/auth/utils/jwt/IJWT";
 import { UI_APP_SYMBOLS } from "../../../../SYMBOLS";
 import { DOMAIN_REPOSITORIES_SYMBOLS, DOMAIN_SERVICES_SYMBOLS } from "../../../../../core/SYMBOLS";
-import { JWTPayload } from "../auth/JWTPayload";
+import { JWTPayload } from "../auth/jwt/JWTPayload";
 import { IUserService } from "../../../../../core/applicationServices/User/IUserService";
 import { GetUserByEmailRequest } from "../../../../../core/applicationServices/User/requests/GetUserByEmailRequest";
 
