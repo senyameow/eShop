@@ -19,3 +19,5 @@ container.bind<IAuthenticationService>(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SE
 
 // ui / utils / другая фигня
 container.bind(UI_APP_SYMBOLS.JWTUtil).to(JWT)
+
+export default container

@@ -31,9 +31,11 @@ export class JWTAuth implements IAuthentication {
         }
 
         const UserDto = new UI_UserDto(user.Contact.email, user.role, user.id)
+        // JWT хочет plain object,а не инстанс класса
+        const payload = { ...UserDto }
 
-        const accessToken = this.jwtService.createToken(new CreateTokenRequest(UserDto, JWT_SECRET_KEY, ACCESS_TOKEN_LIFETIME))
-        const refreshToken = this.jwtService.createToken(new CreateTokenRequest(UserDto, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME))
+        const accessToken = this.jwtService.createToken(new CreateTokenRequest(payload, JWT_SECRET_KEY, ACCESS_TOKEN_LIFETIME))
+        const refreshToken = this.jwtService.createToken(new CreateTokenRequest(payload, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME))
 
         return new AuthResponse(accessToken, refreshToken)
     }
