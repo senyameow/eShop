@@ -9,10 +9,10 @@ import { IAuthenticationService } from "./IAuthenticationService";
 import { SignUpRequest } from "./requests/SignUpRequest";
 import { DOMAIN_REPOSITORIES_SYMBOLS } from "../../SYMBOLS";
 import { LoginRequest } from "./requests/LoginRequest";
-import { GetUserByEmailRequest } from "../../domainServices/User/requests/GetUserByEmailRequest";
 import { compare } from 'bcrypt'
 import { BaseError } from "../../common/errors/BaseError";
 import { CoreErrors } from "../../common/errors/CoreErrors";
+import { FindUserByEmailRequest } from "../../domainServices/User/requests/FindUserByEmailRequest";
 
 
 @injectable()
@@ -25,7 +25,7 @@ export class AuthenticationService implements IAuthenticationService {
     ) { }
 
     async signUp({ email, password }: SignUpRequest): Promise<User> {
-        const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
+        const user = await this.userRepository.findUserByEmail(new FindUserByEmailRequest(email))
         if (user) {
             throw new BaseError(
                 CoreErrors[CoreErrors.USER_ALREADY_EXISTS]
@@ -44,7 +44,7 @@ export class AuthenticationService implements IAuthenticationService {
     }
 
     async login({ email, password }: LoginRequest): Promise<User> {
-        const user = await this.userRepository.getUserByEmail(new GetUserByEmailRequest(email))
+        const user = await this.userRepository.findUserByEmail(new FindUserByEmailRequest(email))
 
         if (!user || !(await compare(password, user?.Contact?.password || ''))) return null
 

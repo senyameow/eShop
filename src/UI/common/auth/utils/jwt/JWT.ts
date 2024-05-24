@@ -19,6 +19,7 @@ export class JWT implements IJWT {
         try {
             jwt.verify(token, JWT_SECRET_KEY)
         } catch (error) {
+            // in case Token is invalid (tokenExpierError)
             return null
         }
     }
