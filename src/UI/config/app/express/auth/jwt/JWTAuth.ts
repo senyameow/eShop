@@ -1,16 +1,16 @@
 import { inject, injectable } from "inversify";
-import { LoginRequest } from "../../../../../core/applicationServices/Authentication/requests/LoginRequest";
-import { IAuthentication } from "../../../../common/auth/public/IAuthentication";
-import { IAuthenticationService } from "../../../../../core/applicationServices/Authentication/IAuthenticationService";
-import { DOMAIN_SERVICES_SYMBOLS } from "../../../../../core/SYMBOLS";
+import { LoginRequest } from "../../../../../../core/applicationServices/Authentication/requests/LoginRequest";
+import { IAuthentication } from "../../../../../common/auth/public/IAuthentication";
+import { IAuthenticationService } from "../../../../../../core/applicationServices/Authentication/IAuthenticationService";
+import { DOMAIN_SERVICES_SYMBOLS } from "../../../../../../core/SYMBOLS";
 import { StatusCodes, getReasonPhrase } from "http-status-codes";
-import { UIError } from "../../../../common/config/errors/UIError";
-import { UI_UserDto } from "../../../../dto/UI_UserDto";
-import { AuthResponse } from "../../../../common/auth/models/AuthResponse";
-import { IJWT } from "../../../../common/auth/utils/jwt/IJWT";
-import { CreateTokenRequest } from "../../../../common/auth/utils/jwt/requests/CreateRequest";
-import { ACCESS_TOKEN_LIFETIME, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME } from "../../../../common/config/errors/constants/const";
-import { UI_APP_SYMBOLS } from "../../../../SYMBOLS";
+import { UIError } from "../../../../../common/config/errors/UIError";
+import { UI_UserDto } from "../../../../../dto/UI_UserDto";
+import { AuthResponse } from "../../../../../common/auth/models/AuthResponse";
+import { IJWT } from "../../../../../common/auth/utils/jwt/IJWT";
+import { CreateTokenRequest } from "../../../../../common/auth/utils/jwt/requests/CreateRequest";
+import { ACCESS_TOKEN_LIFETIME, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME } from "../../../../../common/config/errors/constants/const";
+import { UI_APP_SYMBOLS } from "../../../../../SYMBOLS";
 
 @injectable()
 export class JWTAuth implements IAuthentication {

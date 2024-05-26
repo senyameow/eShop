@@ -45,5 +45,4 @@ export class AuthProvider implements interfaces.AuthProvider {
             return new Principal(null)
         }
     }
-
 }

@@ -41,7 +41,6 @@ export class AuthenticationController extends BaseHttpController {
         { email, password }: LoginRequestBody
     ): Promise<results.JsonResult> {
         const tokens = await this.jwt.authenticate(new LoginRequest(email, password))
-
         return this.json(tokens, StatusCodes.OK)
     }
 
