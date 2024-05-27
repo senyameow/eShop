@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { User } from "../entities/User/User";
+import { User } from "../entities/User";
 import { IOrm } from "./IOrm";
 import { DataSource } from "typeorm";
 
