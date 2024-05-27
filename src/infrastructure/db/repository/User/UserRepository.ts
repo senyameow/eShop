@@ -4,11 +4,10 @@ import { AddUserRequest } from "../../../../core/domainServices/User/requests/Ad
 import { FindUserByEmailRequest } from "../../../../core/domainServices/User/requests/FindUserByEmailRequest";
 import { AbstractRepository } from "../common/Repository";
 import { User as UserEntity } from '../../entities/User'
-import { id, injectable } from "inversify";
+import { injectable } from "inversify";
 import { Role } from "../../entities/Role";
 import { ContactUserInfo } from "../../../../core/domain/User/UserInfo/Contact/ContactUserInfo";
 import { USER_ROLE } from "../../../../core/domain/User/UserRole";
-import { EntityNotFoundError } from "typeorm";
 
 @injectable()
 export class UserRepository extends AbstractRepository<UserEntity> implements IUserRepository {
