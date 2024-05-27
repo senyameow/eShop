@@ -1,6 +1,6 @@
 
 export class FindRoleByNameRequest {
     constructor(
-        private readonly name: string
+        public readonly name: string
     ) { }
 }
