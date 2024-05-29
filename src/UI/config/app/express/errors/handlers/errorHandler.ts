@@ -8,8 +8,9 @@ import { StatusCodes } from "http-status-codes";
 export const errorHandler = (app: Application) => app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
     switch (err.constructor) {
         case UIError:
+            console.log(err)
             res
-                .status((err as UIError).status)
+                .status(err.code)
                 .json(new ErrorResponse(err.code, err.message))
             break;
 
@@ -19,9 +20,10 @@ export const errorHandler = (app: Application) => app.use((err: BaseError, req: 
                 .json(new ErrorResponse(err.code, err.message))
 
         default:
+            console.log(err)
             res
                 .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new ErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR.toString(), err.message))
+                .json(new ErrorResponse(StatusCodes.INTERNAL_SERVER_ERROR, err.message))
 
             break;
     }

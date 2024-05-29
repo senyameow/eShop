@@ -13,6 +13,7 @@ import { compare } from 'bcrypt'
 import { BaseError } from "../../common/errors/BaseError";
 import { CoreErrors } from "../../common/errors/CoreErrors";
 import { FindUserByEmailRequest } from "../../domainServices/User/requests/FindUserByEmailRequest";
+import { StatusCodes } from "http-status-codes";
 
 
 @injectable()
@@ -29,7 +30,8 @@ export class AuthenticationService implements IAuthenticationService {
         if (user) {
             // TODO error-handler 
             throw new BaseError(
-                CoreErrors[CoreErrors.USER_ALREADY_EXISTS]
+                CoreErrors[CoreErrors.USER_ALREADY_EXISTS],
+                StatusCodes.CONFLICT
             )
         }
         // наш кор не знает про то, какие в БД могут быть роли

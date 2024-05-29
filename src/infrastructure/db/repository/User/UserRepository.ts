@@ -11,6 +11,11 @@ import { USER_ROLE } from "../../../../core/domain/User/UserRole";
 
 @injectable()
 export class UserRepository extends AbstractRepository<UserEntity> implements IUserRepository {
+
+    constructor() {
+        super(UserEntity)
+    }
+
     async addUser({ email, password, roleId }: AddUserRequest): Promise<User> {
         const userEntity = new UserEntity()
         userEntity.email = email

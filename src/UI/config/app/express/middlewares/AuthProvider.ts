@@ -15,7 +15,7 @@ import { Principal } from "../auth/models/Principal";
 @injectable()
 export class AuthProvider implements interfaces.AuthProvider {
 
-    @inject(UI_APP_SYMBOLS.JWTUtil) private readonly jwt: IJWT
+    @inject(UI_APP_SYMBOLS.JWT_UTIL) private readonly jwt: IJWT
 
     @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly userService: IUserService;
 

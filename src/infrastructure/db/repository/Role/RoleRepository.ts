@@ -7,6 +7,7 @@ import { AbstractRepository } from '../common/Repository';
 import { EntityNotFoundError } from 'typeorm';
 import { BaseError } from '../../../../core/common/errors/BaseError';
 import { DALErrors } from '../../../common/errors/DALErrors';
+import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class RoleRepository extends AbstractRepository<RoleEntity> implements IRoleRepository {
@@ -21,7 +22,8 @@ export class RoleRepository extends AbstractRepository<RoleEntity> implements IR
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
                 throw new BaseError(
-                    DALErrors[DALErrors.ROLE_NOT_FOUND]
+                    DALErrors[DALErrors.ROLE_NOT_FOUND],
+                    StatusCodes.BAD_REQUEST
                 )
             }
         }

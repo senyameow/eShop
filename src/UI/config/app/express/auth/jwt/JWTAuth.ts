@@ -17,16 +17,18 @@ export class JWTAuth implements IAuthentication {
 
     constructor(
         @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authService: IAuthenticationService,
-        @inject(UI_APP_SYMBOLS.JWTUtil) private readonly jwtService: IJWT
+        @inject(UI_APP_SYMBOLS.JWT_UTIL) private readonly jwtService: IJWT
     ) { }
 
     async authenticate(request: LoginRequest): Promise<AuthResponse> {
         const user = await this.authService.login(request)
 
+        console.log(user)
+
         if (!user) {
             throw new UIError(
                 StatusCodes.UNAUTHORIZED,
-                getReasonPhrase(StatusCodes.UNAUTHORIZED)
+                getReasonPhrase(StatusCodes.UNAUTHORIZED),
             )
         }
 

@@ -15,7 +15,7 @@ import { UI_APP_SYMBOLS } from "../../SYMBOLS";
 export class AuthenticationController extends BaseHttpController {
     constructor(
         @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authenticationService: IAuthenticationService,
-        @inject(UI_APP_SYMBOLS.JWTUtil) private readonly jwt: IAuthentication
+        @inject(UI_APP_SYMBOLS.JWT) private readonly jwt: IAuthentication
     ) {
         super()
     }
