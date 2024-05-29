@@ -1,14 +1,15 @@
 import { inject, injectable } from "inversify";
 import { AbstractApp } from "../common/AbstractApp";
 import * as express from 'express'
-import cors from 'cors'
+import * as cors from 'cors'
 import helmet from 'helmet'
 import { IApp } from "../common/IApp";
+import { UI_APP_SYMBOLS } from "../../../../SYMBOLS";
 
 @injectable()
 export class ExpressApp extends AbstractApp<Express.Application> implements IApp {
 
-    constructor(@inject('') protected readonly app: express.Application) {
+    constructor(@inject(UI_APP_SYMBOLS.EXPRESS) protected readonly app: express.Application) {
         super(app)
     }
 

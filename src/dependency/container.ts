@@ -15,6 +15,12 @@ import { IApp } from '../UI/common/config/app/common/IApp'
 import { InversifyExpressServer } from 'inversify-express-utils'
 import { AuthProvider } from '../UI/config/app/express/middlewares/AuthProvider'
 import { errorHandler } from '../UI/config/app/express/errors/handlers/errorHandler'
+import { TypeOrm } from '../infrastructure/db/orm/TypeOrm'
+import { IOrm } from '../infrastructure/db/orm/IOrm'
+import { DAL_SYMBOLS } from '../infrastructure/db/DAL_SYMBOLS'
+
+import '../UI/controllers/Authentication/AuthenticationsController' // https://github.com/inversify/inversify-express-utils?tab=readme-ov-file#important-information-about-the-controller-decorator
+
 const container = new Container()
 
 
@@ -28,7 +34,7 @@ container.bind<IAuthenticationService>(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SE
 // ui / utils / другая фигня
 container.bind<IJWT>(UI_APP_SYMBOLS.JWTUtil).to(JWT)
 container.bind<express.Application>(UI_APP_SYMBOLS.EXPRESS).toConstantValue(express())
-container.bind<IApp>(UI_APP_SYMBOLS.EXPRESS).to(ExpressApp)
+container.bind<IApp>(UI_APP_SYMBOLS.EXPRESS_APP).to(ExpressApp)
 container.bind<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).toConstantValue(
     new InversifyExpressServer(
         container,
@@ -38,5 +44,6 @@ container.bind<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).toCo
         AuthProvider
     ).setErrorConfig(errorHandler) // эта мидлвара будет в самом конце (как завещал экспрес)
 )
+container.bind<IOrm>(DAL_SYMBOLS.ORM).to(TypeOrm)
 
 export default container

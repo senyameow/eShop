@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import { User } from "../entities/User";
 import { IOrm } from "./IOrm";
 import { DataSource } from "typeorm";
+import { Role } from "../entities/Role";
 
 @injectable()
 export class TypeOrm implements IOrm {
@@ -13,7 +14,7 @@ export class TypeOrm implements IOrm {
             password: '211854Yuki',
             host: 'localhost',
             type: 'postgres',
-            entities: [User]
+            entities: [User, Role]
         })
         await ds.initialize()
     }
