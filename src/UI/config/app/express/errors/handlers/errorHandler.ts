@@ -5,7 +5,7 @@ import { ErrorResponse } from "../responses/ErrorResponse";
 import { CoreError } from "../../../../../../core/common/errors/CoreError";
 import { StatusCodes } from "http-status-codes";
 
-export const errorHandler = (err: BaseError, req: Request, res: Response, next: NextFunction) => {
+export const errorHandler = (app: Application) => app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
     switch (err.constructor) {
         case UIError:
             res
@@ -25,4 +25,4 @@ export const errorHandler = (err: BaseError, req: Request, res: Response, next: 
 
             break;
     }
-}
+})
