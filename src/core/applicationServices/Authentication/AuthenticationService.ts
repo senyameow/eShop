@@ -27,6 +27,7 @@ export class AuthenticationService implements IAuthenticationService {
     async signUp({ email, password }: SignUpRequest): Promise<User> {
         const user = await this.userRepository.findUserByEmail(new FindUserByEmailRequest(email))
         if (user) {
+            // TODO error-handler 
             throw new BaseError(
                 CoreErrors[CoreErrors.USER_ALREADY_EXISTS]
             )

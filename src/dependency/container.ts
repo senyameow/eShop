@@ -8,9 +8,15 @@ import { UI_APP_SYMBOLS } from '../UI/SYMBOLS'
 import { JWT } from '../UI/common/auth/utils/jwt/JWT'
 import { UserRepository } from '../infrastructure/db/repository/User/UserRepository'
 import { RoleRepository } from '../infrastructure/db/repository/Role/RoleRepository'
-
-
+import { IJWT } from '../UI/common/auth/utils/jwt/IJWT'
+import * as express from 'express'
+import { ExpressApp } from '../UI/common/config/app/express/ExpressApp'
+import { IApp } from '../UI/common/config/app/common/IApp'
+import { InversifyExpressServer } from 'inversify-express-utils'
+import { AuthProvider } from '../UI/config/app/express/middlewares/AuthProvider'
+import { errorHandler } from '../UI/config/app/express/errors/handlers/errorHandler'
 const container = new Container()
+
 
 // not ready implementation (repositories):
 container.bind<IUserRepository>(DOMAIN_REPOSITORIES_SYMBOLS.USER_REPOSITORY).to(UserRepository)
@@ -20,6 +26,17 @@ container.bind<IRoleRepository>(DOMAIN_REPOSITORIES_SYMBOLS.ROLE_REPOSITORY).to(
 container.bind<IAuthenticationService>(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE).to(AuthenticationService)
 
 // ui / utils / другая фигня
-container.bind(UI_APP_SYMBOLS.JWTUtil).to(JWT)
+container.bind<IJWT>(UI_APP_SYMBOLS.JWTUtil).to(JWT)
+container.bind<express.Application>(UI_APP_SYMBOLS.EXPRESS).toConstantValue(express())
+container.bind<IApp>(UI_APP_SYMBOLS.EXPRESS).to(ExpressApp)
+container.bind<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).toConstantValue(
+    new InversifyExpressServer(
+        container,
+        null,
+        { rootPath: '/' },
+        container.get<ExpressApp>(UI_APP_SYMBOLS.EXPRESS_APP).appValue,
+        AuthProvider
+    ).setErrorConfig(errorHandler) // эта мидлвара будет в самом конце (как завещал экспрес)
+)
 
 export default container

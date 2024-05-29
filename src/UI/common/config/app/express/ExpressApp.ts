@@ -18,24 +18,28 @@ export class ExpressApp extends AbstractApp<Express.Application> implements IApp
         this.initPlugins()
     }
 
-    public initBodyParser(): void {
+    initBodyParser(): void {
         this.app.use(express.json())
     }
 
-    public initSecurity(): void {
+    initSecurity(): void {
         this.app.use(helmet())
     }
 
-    public initPlugins(): void {
+    initPlugins(): void {
         this.app.use(cors())
     }
 
-    public initHandlers(): void {
+    initHandlers(): void {
         throw new Error("Method not implemented.");
     }
 
-    public initLog(): void {
+    initLog(): void {
         throw new Error("Method not implemented.");
+    }
+
+    public get appValue(): express.Application {
+        return this.app
     }
 
 }
