@@ -1,6 +1,6 @@
 
 import { interfaces } from "inversify";
-import { BaseModule } from "../../BaseModule";
+import { BaseModule } from "../../base/BaseModule";
 import { DOMAIN_REPOSITORIES_SYMBOLS, DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";
 import { IRoleRepository } from "../../../core/domainServices/Role/IRoleRepository";
 import { RoleRepository } from "../../../infrastructure/db/repository/Role/RoleRepository";

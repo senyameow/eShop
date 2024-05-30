@@ -1,7 +1,7 @@
 import { DAL_SYMBOLS } from "../../../infrastructure/db/DAL_SYMBOLS";
 import { IOrm } from "../../../infrastructure/db/orm/IOrm";
 import { TypeOrm } from "../../../infrastructure/db/orm/TypeOrm";
-import { BaseModule } from "../../BaseModule";
+import { BaseModule } from "../../base/BaseModule";
 import { interfaces } from 'inversify'
 
 export class CommonModule extends BaseModule {

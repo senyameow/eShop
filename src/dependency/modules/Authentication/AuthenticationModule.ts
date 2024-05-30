@@ -1,5 +1,5 @@
 import { interfaces } from "inversify";
-import { BaseModule } from "../../BaseModule";
+import { BaseModule } from "../../base/BaseModule";
 import { IAuthenticationService } from "../../../core/applicationServices/Authentication/IAuthenticationService";
 import { AuthenticationService } from "../../../core/applicationServices/Authentication/AuthenticationService";
 import { DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";

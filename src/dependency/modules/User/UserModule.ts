@@ -1,5 +1,5 @@
 import { interfaces } from "inversify";
-import { BaseModule } from "../../BaseModule";
+import { BaseModule } from "../../base/BaseModule";
 import { IUserRepository } from "../../../core/domainServices/User/IUserRepository";
 import { UserRepository } from "../../../infrastructure/db/repository/User/UserRepository";
 import { DOMAIN_REPOSITORIES_SYMBOLS, DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";

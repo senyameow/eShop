@@ -1,5 +1,5 @@
 import { InversifyExpressServer } from "inversify-express-utils";
-import { BaseContainer } from "./BaseContainer";
+import { BaseContainer } from "./base/BaseContainer";
 import { AuthenticationModule } from "./modules/Authentication/AuthenticationModule";
 import { RoleModule } from "./modules/Role/RoleModule";
 import { UserModule } from "./modules/User/UserModule";

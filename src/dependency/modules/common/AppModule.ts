@@ -1,5 +1,5 @@
 import { interfaces } from "inversify";
-import { BaseModule } from "../../BaseModule";
+import { BaseModule } from "../../base/BaseModule";
 import * as express from 'express'
 import { UI_APP_SYMBOLS } from "../../../UI/SYMBOLS";
 import { IApp } from "../../../UI/common/config/app/common/IApp";
