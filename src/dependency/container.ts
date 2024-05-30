@@ -23,35 +23,11 @@ import '../UI/controllers/Authentication/AuthenticationsController' // https://g
 import { JWTAuth } from '../UI/config/app/express/auth/jwt/JWTAuth'
 import { IAuthentication } from '../UI/common/auth/public/IAuthentication'
 import { Repository } from 'typeorm'
-import { AbstractRepository } from '../infrastructure/db/repository/common/Repository'
 
-const container = new Container()
-
+// const container = new Container()
 
 // not ready implementation (repositories):
-container.bind(DAL_SYMBOLS.TYPE_ORM_REPO).toConstantValue(Repository)
-container.bind<IUserRepository>(DOMAIN_REPOSITORIES_SYMBOLS.USER_REPOSITORY).to(UserRepository)
-container.bind<IRoleRepository>(DOMAIN_REPOSITORIES_SYMBOLS.ROLE_REPOSITORY).to(RoleRepository)
-
-// domain services
-container.bind<IAuthenticationService>(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE).to(AuthenticationService)
-
-// ui / utils / другая фигня
-container.bind<IJWT>(UI_APP_SYMBOLS.JWT_UTIL).to(JWT)
-container.bind<IAuthentication>(UI_APP_SYMBOLS.JWT).to(JWTAuth)
-container.bind<express.Application>(UI_APP_SYMBOLS.EXPRESS).toConstantValue(express())
-container.bind<IApp>(UI_APP_SYMBOLS.EXPRESS_APP).to(ExpressApp)
-container.bind<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).toConstantValue(
-    new InversifyExpressServer(
-        container,
-        null,
-        { rootPath: '/' },
-        container.get<ExpressApp>(UI_APP_SYMBOLS.EXPRESS_APP).appValue,
-        AuthProvider
-    ).setErrorConfig(errorHandler) // эта мидлвара будет в самом конце (как завещал экспрес)
-)
-container.bind<IOrm>(DAL_SYMBOLS.ORM).to(TypeOrm)
+// container.bind(DAL_SYMBOLS.TYPE_ORM_REPO).toConstantValue(Repository)
 
 
-
-export default container
+// export default container

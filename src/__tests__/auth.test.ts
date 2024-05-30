@@ -1,5 +1,7 @@
-test('User can succesfully register', () => {
+import test, { it } from "node:test"
 
+test('User can succesfully register', () => {
+    it()
 })
 test.todo('User can succesfully login')
 test.todo('User gets 403 on invalid credentials')
