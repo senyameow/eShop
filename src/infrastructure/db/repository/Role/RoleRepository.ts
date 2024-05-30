@@ -11,13 +11,19 @@ import { StatusCodes } from 'http-status-codes';
 
 @injectable()
 export class RoleRepository extends AbstractRepository<RoleEntity> implements IRoleRepository {
+
+    constructor() {
+        super(RoleEntity)
+    }
+
     async findRoleByName({ name }: FindRoleByNameRequest): Promise<Role> {
         try {
             const role = await this._repository
                 .createQueryBuilder()
-                .where('role.name = :name', { name })
-                .getOneOrFail()
-
+                .select('role')
+                .from(RoleEntity, 'role')
+                .where('role.name = :id', { name })
+                .getOne()
             return new Role(role.id.toString(), role.name)
         } catch (error) {
             if (error instanceof EntityNotFoundError) {

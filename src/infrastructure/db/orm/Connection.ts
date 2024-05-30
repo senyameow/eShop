@@ -10,5 +10,5 @@ export const Connection = new DataSource({
     host: 'localhost',
     type: 'postgres',
     entities: [User, Role],
-    synchronize: true,
+    synchronize: false,
 })

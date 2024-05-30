@@ -10,7 +10,7 @@ export class Role {
     @Column({
         default: USER_ROLE.USER,
         type: 'enum',
-        enum: USER_ROLE
+        enum: USER_ROLE,
     })
     name!: string
 
@@ -18,6 +18,5 @@ export class Role {
         () => User,
         user => user.role
     )
-    user!: User
-
+    user!: User[]
 }

@@ -6,6 +6,7 @@ import { CoreError } from "../../../../../../core/common/errors/CoreError";
 import { StatusCodes } from "http-status-codes";
 
 export const errorHandler = (app: Application) => app.use((err: BaseError, req: Request, res: Response, next: NextFunction) => {
+    next()
     switch (err.constructor) {
         case UIError:
             console.log(err)
@@ -17,8 +18,14 @@ export const errorHandler = (app: Application) => app.use((err: BaseError, req: 
         case CoreError:
             res
                 .status(StatusCodes.UNPROCESSABLE_ENTITY)
-                .json(new ErrorResponse(err.code, err.message))
+                .json(new ErrorResponse(err.code, err.name))
+            break
 
+        case BaseError:
+            res
+                .status(err.code)
+                .json(new ErrorResponse(err.code, err.name))
+            break
         default:
             console.log(err)
             res

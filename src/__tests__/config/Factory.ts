@@ -4,6 +4,7 @@ import { config } from 'dotenv'
 import * as express from 'express'
 import { Server as HttpServer, createServer } from 'http'
 import { DataSourceOptions } from 'typeorm'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 
 process.env.NODE_ENV = 'test'
 config()

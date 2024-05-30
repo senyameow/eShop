@@ -29,7 +29,7 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         const user = await this.save(userEntity)
 
         const contact = new ContactUserInfo(user.password, user.email)
-        return new User(user.id, user.role as unknown as USER_ROLE, contact)
+        return new User(user.id, user.role.name as USER_ROLE, contact)
     }
     async findUserByEmail({ email }: FindUserByEmailRequest): Promise<User> {
         const user = await this._repository

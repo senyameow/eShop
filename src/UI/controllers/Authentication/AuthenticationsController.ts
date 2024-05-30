@@ -23,6 +23,7 @@ export class AuthenticationController extends BaseHttpController {
     @httpPost('/signup')
     // контроллер получает действие на регистрацию пользователя в системе и дергает нужные сервисы
     // контроллер должен быть МАКСИМАЛЬНО тонким
+
     public async register(
         @requestBody()
         { email, password }: SignUpRequestBody
