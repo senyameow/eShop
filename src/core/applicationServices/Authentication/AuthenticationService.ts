@@ -37,6 +37,7 @@ export class AuthenticationService implements IAuthenticationService {
         // наш кор не знает про то, какие в БД могут быть роли
         // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
+        console.log(roleId)
         // нашему приложению хочется вот так, а JWT или сессии, че угодно, не важно
         return this.userRepository.addUser(new AddUserRequest(
             +roleId,

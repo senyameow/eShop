@@ -18,12 +18,14 @@ export class RoleRepository extends AbstractRepository<RoleEntity> implements IR
 
     async findRoleByName({ name }: FindRoleByNameRequest): Promise<Role> {
         try {
+            console.log(name)
             const role = await this._repository
                 .createQueryBuilder()
                 .select('role')
                 .from(RoleEntity, 'role')
-                .where('role.name = :id', { name })
+                .where('role.name = :name', { name })
                 .getOne()
+            console.log(role)
             return new Role(role.id.toString(), role.name)
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
