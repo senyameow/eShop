@@ -23,8 +23,6 @@ export class JWTAuth implements IAuthentication {
     async authenticate(request: LoginRequest): Promise<AuthResponse> {
         const user = await this.authService.login(request)
 
-        console.log(user)
-
         if (!user) {
             throw new UIError(
                 StatusCodes.UNAUTHORIZED,

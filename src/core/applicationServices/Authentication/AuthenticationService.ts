@@ -9,7 +9,7 @@ import { IAuthenticationService } from "./IAuthenticationService";
 import { SignUpRequest } from "./requests/SignUpRequest";
 import { DOMAIN_REPOSITORIES_SYMBOLS } from "../../SYMBOLS";
 import { LoginRequest } from "./requests/LoginRequest";
-import { compare } from 'bcrypt'
+import { compare, genSalt, hash } from 'bcrypt'
 import { BaseError } from "../../common/errors/BaseError";
 import { CoreErrors } from "../../common/errors/CoreErrors";
 import { FindUserByEmailRequest } from "../../domainServices/User/requests/FindUserByEmailRequest";
@@ -37,12 +37,15 @@ export class AuthenticationService implements IAuthenticationService {
         // наш кор не знает про то, какие в БД могут быть роли
         // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
-        console.log(roleId)
         // нашему приложению хочется вот так, а JWT или сессии, че угодно, не важно
+
+        const salt = await genSalt(+process.env.SALT)
+        const hashedPassword = await hash(password, salt)
+
         return this.userRepository.addUser(new AddUserRequest(
             +roleId,
             email,
-            password
+            hashedPassword
         ))
     }
 
