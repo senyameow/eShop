@@ -16,5 +16,5 @@ import { AppContainer } from './dependency/AppContainer'
 
     await appContainer.get<IOrm>(DAL_SYMBOLS.ORM).init()
 
-    appContainer.get<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).build().listen(3000)
+    appContainer.get<InversifyExpressServer>(UI_APP_SYMBOLS.IVERSIFY_EXPRESS_APP).build().listen(8080)
 })();
