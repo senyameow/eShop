@@ -19,6 +19,7 @@ import { StatusCodes } from "http-status-codes";
 @injectable()
 export class AuthenticationService implements IAuthenticationService {
     constructor(
+        // внедряем нужные репозитории спомощью декоратора @inject
         @inject(DOMAIN_REPOSITORIES_SYMBOLS.USER_REPOSITORY)
         private readonly userRepository: IUserRepository,
         @inject(DOMAIN_REPOSITORIES_SYMBOLS.ROLE_REPOSITORY)
@@ -28,7 +29,6 @@ export class AuthenticationService implements IAuthenticationService {
     async signUp({ email, password }: SignUpRequest): Promise<User> {
         const user = await this.userRepository.findUserByEmail(new FindUserByEmailRequest(email))
         if (user) {
-            // TODO error-handler 
             throw new BaseError(
                 CoreErrors[CoreErrors.USER_ALREADY_EXISTS],
                 StatusCodes.CONFLICT
@@ -37,7 +37,6 @@ export class AuthenticationService implements IAuthenticationService {
         // наш кор не знает про то, какие в БД могут быть роли
         // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
-        // нашему приложению хочется вот так, а JWT или сессии, че угодно, не важно
 
         const salt = await genSalt(+process.env.SALT)
         const hashedPassword = await hash(password, salt)

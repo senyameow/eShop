@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { InversifyExpressServer } from "inversify-express-utils";
 import { BaseContainer } from "./base/BaseContainer";
 import { AuthenticationModule } from "./modules/Authentication/AuthenticationModule";
@@ -9,6 +11,7 @@ import { UI_APP_SYMBOLS } from "../UI/SYMBOLS";
 import { ExpressApp } from "../UI/common/config/app/express/ExpressApp";
 import { AuthProvider } from "../UI/config/app/express/middlewares/AuthProvider";
 import { errorHandler } from "../UI/config/app/express/errors/handlers/errorHandler";
+
 
 export class AppContainer extends BaseContainer {
 

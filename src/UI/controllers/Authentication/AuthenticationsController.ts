@@ -29,9 +29,10 @@ export class AuthenticationController extends BaseHttpController {
         { email, password }: SignUpRequestBody
     ): Promise<results.JsonResult> {
         // дернули auth сервис
+        console.log(email, password, 'in controller')
         const { Contact, role, id } = await this.authenticationService.signUp(new SignUpRequest(email, password))
         // мапнули во что-то, что мы хотим отдать клиенту
-        const userDto = new UI_UserDto(Contact.email, role, id)
+        const userDto = new UI_UserDto(Contact.email, 'USER', id)
         // вернули json'ку с кодом 200
         return this.json(userDto, StatusCodes.OK)
     }

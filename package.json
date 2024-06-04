@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "qwe": "sh ./bin/qwe.sh",
-    "test": "sh chmod +x ./bin/test.sh & sh ./bin/test.sh",
+    "test": "chmod +x ./bin/test.sh & sh ./bin/test.sh",
     "dev": "npm run migration:generate src/infrastructure/db/migrations && npm run schema:sync && nodemon src/index.ts",
     "build": "tsc -p .",
     "start": "NODE_PATH=./build node build/index.js",

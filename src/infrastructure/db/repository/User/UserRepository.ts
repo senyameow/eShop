@@ -22,6 +22,7 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         userEntity.password = password
 
         const userRole = new Role()
+        userRole.name = USER_ROLE.USER
         userRole.id = roleId
         userEntity.role = userRole
 
@@ -31,12 +32,14 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         const contact = new ContactUserInfo(user.password, user.email)
         return new User(user.id, user.role.name as USER_ROLE, contact)
     }
+
     async findUserByEmail({ email }: FindUserByEmailRequest): Promise<User> {
         const user = await this._repository
             .createQueryBuilder()
             .leftJoinAndSelect('User.role', 'Role')
             .where('User.email = :email', { email })
             .getOne()
+
 
         if (!user) return null
 

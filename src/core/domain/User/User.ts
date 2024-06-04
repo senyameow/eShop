@@ -8,17 +8,11 @@ export class User {
         public readonly id: number,
         // admin or user
         public readonly role: USER_ROLE,
-        // для профиля (для покупок не требуется)
-        // public readonly age: number,
-        // public readonly firstName: string,
-        // public readonly lastName: string,
-        // public readonly username: string,
         // для покупок требуется
-        // public readonly phone: string,
-        // public readonly email: string,
-        // public readonly password: string,
         public readonly Contact: ContactUserInfo,
+        // для профиля (для покупок не требуется)
         public readonly Profile?: ProfileUserInfo,
-        // эти 2 это VO, не сущности
+        // эти 2 это value objects, не сущности
     ) { }
 }
+
