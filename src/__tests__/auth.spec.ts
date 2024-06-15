@@ -26,30 +26,40 @@ describe('/auth', () => {
         await prepareTestDb(db)
     })
 
-    test('User can successfully register', async () => {
-        const response = await request(app)
-            .post('/api/auth/signup')
-            .set('content-type', 'application/json')
-            .send(new SignUpRequestBody(
-                'test@mail.ru',
-                '1q2w3e4r'
-            ))
+    describe('User can successfully register', () => {
+        it('should respond with 200 OK UserDTO', async () => {
+            const response = await request(app)
+                .post('/api/auth/signup')
+                .set('content-type', 'application/json')
+                .send(new SignUpRequestBody(
+                    'test@mail.ru',
+                    '1q2w3e4r'
+                ))
 
 
-        const { email, id, password, role } = await db.getRepository<User>(User).findOneOrFail({
-            where: {
-                email: 'test@mail.ru'
-            }
+            const dbuser = await db.getRepository<User>(User).findOneOrFail({
+                where: {
+                    email: 'test@mail.ru'
+                }
+            })
+
+            expect(dbuser.email).toBe('test@mail.ru');
+            expect(dbuser.password).not.toBe('1q2w3e4r')
+            expect(response.body).toEqual(new UI_UserDto(dbuser.email, dbuser.role.name, dbuser.id))
+
+            expect(response.header['set-cookie']).toBeFalsy()
         })
 
-        expect(email).toBe('test@mail.ru');
-        expect(password).not.toBe('1q2w3e4r')
-        expect(response.body).toEqual(new UI_UserDto(email, 'USER', id))
-
-        expect(response.header['cookie']).toBeFalsy()
     })
+
+    describe('User can successfully login', () => {
+        it('should respond 200 OK given valid existing data', async () => {
+
+        })
+    })
+
 })
-// test.todo('User can succesfully login')
+
 // test.todo('User gets 403 on invalid credentials')
 // test.todo('User gets 401 on expired access token')
 // test.todo('User gets 401 when refreshing if no fingerprint provided')

@@ -10,40 +10,48 @@ import { DOMAIN_SERVICES_SYMBOLS } from "../../../core/SYMBOLS";
 import { LoginRequest } from "../../../core/applicationServices/Authentication/requests/LoginRequest";
 import { IAuthentication } from "../../common/auth/public/IAuthentication";
 import { UI_APP_SYMBOLS } from "../../SYMBOLS";
+import { RefreshTokensRequestBody } from "./requests/RefreshTokensRequestBody";
 
 @controller('/api/auth')
+
 export class AuthenticationController extends BaseHttpController {
     constructor(
         @inject(DOMAIN_SERVICES_SYMBOLS.AUTHENTICATION_SERVICE) private readonly authenticationService: IAuthenticationService,
+
         @inject(UI_APP_SYMBOLS.JWT) private readonly jwt: IAuthentication
     ) {
         super()
     }
 
     @httpPost('/signup')
-    // контроллер получает действие на регистрацию пользователя в системе и дергает нужные сервисы
-    // контроллер должен быть МАКСИМАЛЬНО тонким
-
     public async register(
         @requestBody()
         { email, password }: SignUpRequestBody
     ): Promise<results.JsonResult> {
-        // дернули auth сервис
-        console.log(email, password, 'in controller')
+
         const { Contact, role, id } = await this.authenticationService.signUp(new SignUpRequest(email, password))
-        // мапнули во что-то, что мы хотим отдать клиенту
-        const userDto = new UI_UserDto(Contact.email, 'USER', id)
-        // вернули json'ку с кодом 200
+
+        const userDto = new UI_UserDto(Contact.email, role, id)
+
         return this.json(userDto, StatusCodes.OK)
     }
 
     @httpGet('/login')
     public async login(
         @requestBody()
-        { email, password }: LoginRequestBody
+        { email, password, fingerprint }: LoginRequestBody
     ): Promise<results.JsonResult> {
         const tokens = await this.jwt.authenticate(new LoginRequest(email, password))
+
         return this.json(tokens, StatusCodes.OK)
+    }
+
+    @httpGet('/refresh-tokens')
+    public async refresh(
+        @requestBody()
+        { }: RefreshTokensRequestBody
+    ) {
+
     }
 
 }

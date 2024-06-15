@@ -26,7 +26,6 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         userRole.id = roleId
         userEntity.role = userRole
 
-        // TODO: transaction. I can't create user w/o cart in db
         const user = await this.save(userEntity)
 
         const contact = new ContactUserInfo(user.password, user.email)
@@ -47,3 +46,4 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         return new User(user.id, user.role as unknown as USER_ROLE, contact)
     }
 }
+

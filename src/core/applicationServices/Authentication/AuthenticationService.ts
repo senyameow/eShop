@@ -34,8 +34,6 @@ export class AuthenticationService implements IAuthenticationService {
                 StatusCodes.CONFLICT
             )
         }
-        // наш кор не знает про то, какие в БД могут быть роли
-        // мы вызываем сервис ответственный за роли и просим найти роль с пользователем
         const { id: roleId } = await this.roleRepository.findRoleByName(new FindRoleByNameRequest(USER_ROLE.USER))
 
         const salt = await genSalt(+process.env.SALT)

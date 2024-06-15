@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
 import { Role } from "../entities/Role";
 import { User } from "../entities/User";
+import * as env from 'dotenv'
+import { RefreshSession } from "../entities/RefreshSession";
 
 export const Connection = new DataSource({
     username: process.env.DB_USER,
@@ -11,7 +13,7 @@ export const Connection = new DataSource({
     migrations: [`${__dirname}/src/infrastructure/db/migrations/*.ts`],
     host: 'localhost',
     type: 'postgres',
-    entities: [User, Role],
+    entities: [User, Role, RefreshSession],
     synchronize: true,
 })
 
