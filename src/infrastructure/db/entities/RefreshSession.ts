@@ -9,7 +9,7 @@ export class RefreshSession {
 
     @OneToOne(() => User, { onDelete: 'CASCADE' })
     @JoinColumn({ referencedColumnName: 'id' })
-    userId!: User
+    user!: number
 
     @Column({
         type: 'uuid',
@@ -22,6 +22,12 @@ export class RefreshSession {
         nullable: false
     })
     expiresIn!: number
+
+    @Column({
+        type: 'text',
+        nullable: false
+    })
+    fingerprint!: string;
 
     @Column({
         type: 'timestamp',

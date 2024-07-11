@@ -12,7 +12,7 @@ export const errorHandler = (app: Application) => app.use((err: BaseError, req: 
             console.log(err)
             res
                 .status(err.code)
-                .json(new ErrorResponse(err.code, err.message))
+                .json(new ErrorResponse(err.code, err.name))
             break;
 
         case CoreError:

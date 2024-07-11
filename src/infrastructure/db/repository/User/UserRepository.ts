@@ -46,4 +46,3 @@ export class UserRepository extends AbstractRepository<UserEntity> implements IU
         return new User(user.id, user.role as unknown as USER_ROLE, contact)
     }
 }
-

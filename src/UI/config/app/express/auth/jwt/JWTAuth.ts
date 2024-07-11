@@ -11,6 +11,7 @@ import { IJWT } from "../../../../../common/auth/utils/jwt/IJWT";
 import { CreateTokenRequest } from "../../../../../common/auth/utils/jwt/requests/CreateRequest";
 import { ACCESS_TOKEN_LIFETIME, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME } from "../../../../../common/config/errors/constants/const";
 import { UI_APP_SYMBOLS } from "../../../../../SYMBOLS";
+import { RefreshSession } from "../../../../../../infrastructure/db/entities/RefreshSession";
 
 @injectable()
 export class JWTAuth implements IAuthentication {
@@ -29,14 +30,31 @@ export class JWTAuth implements IAuthentication {
                 getReasonPhrase(StatusCodes.UNAUTHORIZED),
             )
         }
-
         const UserDto = new UI_UserDto(user.Contact.email, user.role, user.id)
-        // JWT хочет plain object,а не инстанс класса
         const payload = { ...UserDto }
 
-        const accessToken = this.jwtService.createToken(new CreateTokenRequest(payload, JWT_SECRET_KEY, ACCESS_TOKEN_LIFETIME))
+        // создаю токен
         const refreshToken = this.jwtService.createToken(new CreateTokenRequest(payload, JWT_SECRET_KEY, REFRESH_TOKEN_LIFETIME))
+        // создаю сессию
+        const session = await addSession()
+
+
+        const accessToken = this.jwtService.createToken(new CreateTokenRequest(payload, JWT_SECRET_KEY, ACCESS_TOKEN_LIFETIME))
 
         return new AuthResponse(accessToken, refreshToken)
+    }
+
+    private async createSession(userId: number, refreshToken: string, fingerprint: string) {
+        const session = new RefreshSession()
+        session.user = userId
+        session.expiresIn = REFRESH_TOKEN_LIFETIME
+        session.refreshToken = refreshToken
+        session.fingerprint = fingerprint
+
+        try {
+
+        } catch (error) {
+
+        }
     }
 }

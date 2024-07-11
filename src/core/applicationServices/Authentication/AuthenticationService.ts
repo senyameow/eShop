@@ -46,7 +46,7 @@ export class AuthenticationService implements IAuthenticationService {
         ))
     }
 
-    async login({ email, password }: LoginRequest): Promise<User> {
+    async login({ email, password }: LoginRequest): Promise<User | null> {
         const user = await this.userRepository.findUserByEmail(new FindUserByEmailRequest(email))
 
         if (!user || !(await compare(password, user?.Contact?.password || ''))) return null
